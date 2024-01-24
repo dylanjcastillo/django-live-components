@@ -1,0 +1,12 @@
+{% include "_base.html" %}
+{% block content %}
+    <h1>Welcome, {{ user.username }}</h1>
+    <div hx-ext="ws" ws-connect="/feed">
+        <div id="tweets"></div>
+    </div>
+    <form hx-post="{% url 'post_tweet' %}" hx-swap="none">
+        {% csrf_token %}
+        <textarea name="content"></textarea>
+        <button type="submit">Tweet</button>
+    </form>
+{% endblock %}
