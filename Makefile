@@ -17,6 +17,9 @@ test:
 redis:
 	docker run --rm --name redis-server -p 6379:6379 -v ${FULL_DIR}/tmp:/data redis
 
+notification:
+	${PYTHON_EXECUTABLE} random_notifications.py
+
 superuser:
 	cd $(BACKEND_DIR) && $(PYTHON_EXECUTABLE) manage.py createsuperuser
 

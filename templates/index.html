@@ -1,7 +1,10 @@
 {% include "_base.html" %}
 {% block content %}
+    <div hx-ext="sse"
+         sse-connect="{% url 'stream_notification' %}"
+         sse-swap="notification"></div>
+    <br>
     {% component "counter" id=1 %}
-    <div hx-ext="ws" ws-connect="/feed">
-        <div id="tweets"></div>
-    </div>
+    {% component "stateless_counter" id=1 %}
+    {% component "stateless_counter" id=2 %}
 {% endblock %}

@@ -8,7 +8,7 @@ class CounterComponent(component.Component):
 
     def get_context_data(self, id, **kwargs):
         counter, _ = self.model.objects.get_or_create(id=id)
-        return {"count": counter.count}
+        return {"count": counter.count, "id": id}
 
     def post(self, request, method, id, *args, **kwargs):
         counter, _ = self.model.objects.get_or_create(id=id)
@@ -22,24 +22,15 @@ class CounterComponent(component.Component):
 
         context = {
             "count": counter.count,
+            "id": id,
         }
         slots = {}
-        print("POST", context, slots)
-        
         return self.render_to_response(context, slots)
 
     template = """
-        <div id="counter-component" hx-target="#counter-component">
-            <span>Count: {{ count }}</span>
-            <button type="button" hx-post="{% url 'counter' method='inc' id=1 %}">Increment</button>
-            <button type="button" hx-post="{% url 'counter' method='dec' id=1 %}">Decrement</button>
+        <div id="counter-component-{{ id }}" hx-target="#counter-component-{{ id }}">
+            <div>Count: {{ count }}</div>
+            <button type="button" hx-post="{% url 'counter' method='dec' id=id %}"> -1 </button>
+            <button type="button" hx-post="{% url 'counter' method='inc' id=id %}"> +1 </button>
         </div>
-    """
-
-    css = """
-        .calendar-component { width: 200px; background: pink; }
-        .calendar-component span { font-weight: bold; }
-    """
-
-    js = """
     """
