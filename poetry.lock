@@ -389,18 +389,22 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
-name = "django-components"
+name = "django_components"
 version = "0.33"
-description = "A way to create simple reusable template components in Django."
+description = ""
 optional = false
 python-versions = "*"
-files = [
-    {file = "django_components-0.33-py3-none-any.whl", hash = "sha256:a3bcdd65e823a3835262c37d6a00adba4a89f84bd67d0bf7cc460887b5d95f8c"},
-    {file = "django_components-0.33.tar.gz", hash = "sha256:63e5fe307306dcc2be7ff76a43f8e83e2bad778ffe72fa60596751e1ff595f6a"},
-]
+files = []
+develop = false
 
 [package.dependencies]
 Django = ">=3.2"
+
+[package.source]
+type = "git"
+url = "https://github.com/EmilStenstrom/django-components.git"
+reference = "HEAD"
+resolved_reference = "91b4accfebf74f3f7a8cf2ecab03789a1979d578"
 
 [[package]]
 name = "djlint"
@@ -1256,4 +1260,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "a690cdc60bfe04279a3189332ee7ba47195b0b370eb0f48fcfff8db07b1a9bbc"
+content-hash = "794522bcddd56c4ab2472d33e931a4a81cf1dee953bfb85d730e29fe05eae1bf"

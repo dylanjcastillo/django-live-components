@@ -32,13 +32,15 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "daphne",
-    "app",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "django.contrib.staticfiles",
+    # "django.contrib.staticfiles",
+    "django_components",
+    "django_components.safer_staticfiles",
+    "app",
 ]
 
 
@@ -60,13 +62,25 @@ TEMPLATES = [
         "DIRS": [
             BASE_DIR / "templates",
         ],
-        "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+            ],
+            "loaders": [
+                (
+                    "django.template.loaders.cached.Loader",
+                    [
+                        "django.template.loaders.filesystem.Loader",
+                        "django.template.loaders.app_directories.Loader",
+                        "django_components.template_loader.Loader",
+                    ],
+                )
+            ],
+            "builtins": [
+                "django_components.templatetags.component_tags",
             ],
         },
     },
@@ -128,13 +142,6 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [
-                ("127.0.0.1", 6379)
-            ],  # Modify if your Redis server is not on localhost
-        },
-    },
-}
+STATICFILES_DIRS = [
+    BASE_DIR / "components",
+]

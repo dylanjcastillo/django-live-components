@@ -10,7 +10,7 @@ packages = [{include = "src"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 Django = "^5.0.1"
-django-components = "0.33"
+django-components = {git = "https://github.com/EmilStenstrom/django-components.git"}
 channels = {extras = ["daphne"], version = "^4.0.0"}
 channels-redis = "^4.2.0"
 
