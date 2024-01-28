@@ -15,7 +15,7 @@ def sse_message(event_id: int, event: str, data: str) -> str:
 
 class NotificationComponent(component.Component):
     template = """
-    <div style="text-color: {{color}};" role="alert">
+    <div style="color: {{color}};" role="alert">
         <span style="font-weight: bold;">{{ title }}</span> {{ message }} 
     </div>
     """

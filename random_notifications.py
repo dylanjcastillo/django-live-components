@@ -16,7 +16,7 @@ def create_random_notification():
         "id": random.randint(1, 1000),
         "title": "Notification " + str(random.randint(1, 100)),
         "message": "This is a random message " + str(random.randint(1, 100)),
-        "color": random.choice(["#edafb8", "#f7e1d7", "#f9dcc4", "#b0c4b1"]),
+        "color": random.choice(["blue", "green", "red", "black", "gray", "purple"]),
         "timestamp": time.ctime(),
     }
 
