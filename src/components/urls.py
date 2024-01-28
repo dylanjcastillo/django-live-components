@@ -1,5 +1,5 @@
 from django.urls import path
-from components.notifications import streaming_view
+from components.notification import streaming_view
 
 urlpatterns = [
     path(
