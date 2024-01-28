@@ -5,8 +5,14 @@ import redis.asyncio as redis
 from django.http import StreamingHttpResponse
 from django_components import component
 
+r = redis.from_url("redis://localhost")
 
-@component.register("notification")
+
+def sse_message(event_id: int, event: str, data: str) -> str:
+    data = data.replace("\n", "")
+    return f"id: {event_id}\n" f"event: {event}\n" f"data: {data.strip()}\n\n"
+
+
 class NotificationComponent(component.Component):
     template = """
     <div style="text-color: {{color}};" role="alert">
@@ -20,15 +26,7 @@ notification_component = NotificationComponent(
 )
 
 
-def sse_message(event_id: int, event: str, data: str) -> str:
-    data = data.replace("\n", "")
-    return f"id: {event_id}\n" f"event: {event}\n" f"data: {data.strip()}\n\n"
-
-
-r = redis.from_url("redis://localhost")
-
-
-async def get_component_updates(*args, **kwargs) -> AsyncGenerator[str, None]:
+async def streaming_response(*args, **kwargs) -> AsyncGenerator[str, None]:
     async with r.pubsub() as pubsub:
         await pubsub.subscribe("notifications_channel")
         try:
@@ -55,8 +53,8 @@ async def get_component_updates(*args, **kwargs) -> AsyncGenerator[str, None]:
             await r.aclose()
 
 
-async def stream_component(request):
+async def streaming_view(request):
     return StreamingHttpResponse(
-        streaming_content=get_component_updates(),
+        streaming_content=streaming_response(),
         content_type="text/event-stream",
     )
