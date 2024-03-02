@@ -4,7 +4,7 @@ from components.notification import NotificationComponent
 urlpatterns = [
     path(
         "notification/",
-        NotificationComponent.as_view(),
+        NotificationComponent.as_live_view(),
         name="stream_notification",
     ),
 ]

@@ -16,8 +16,9 @@ def sse_message(event_id: int, event: str, data: str) -> str:
 
 
 class NotificationComponent(component.Component):
+
     @classonlymethod
-    def as_view(cls, **initkwargs):
+    def as_live_view(cls, **initkwargs):
         view = super().as_view(**initkwargs)
         view._is_coroutine = asyncio.coroutines._is_coroutine
         return view
