@@ -1,10 +1,10 @@
 from django.urls import path
-from components.notification import streaming_view
+from components.notification import NotificationComponent
 
 urlpatterns = [
     path(
         "notification/",
-        streaming_view,
+        NotificationComponent.as_view(),
         name="stream_notification",
     ),
 ]
